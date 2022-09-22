@@ -20,7 +20,7 @@ public class RotateAndMoveMesh : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButton(0))
+        if(Input.GetMouseButton(1))
         {
             deltaPos = Input.mousePosition - prevPos;
             if(Vector3.Dot(transform.up, Vector3.up) >= 0)
@@ -35,18 +35,18 @@ public class RotateAndMoveMesh : MonoBehaviour
             transform.Rotate(cam.transform.right, Vector3.Dot(deltaPos, cam.transform.up), Space.World);
         }
 
-        prevPos = Input.mousePosition;
-
         if (Input.GetMouseButton(2))
         {
+            deltaPos = Input.mousePosition - prevPos;
+            Vector3 newPos = new Vector3(deltaPos.x / 100, deltaPos.y / 100, transform.position.z);
             gameObject.GetComponent<BoxCollider>().enabled = true;
-            Vector3 screenPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraOffsetZ);
-            Vector3 newPos = cam.ScreenToWorldPoint(screenPosition);
-            transform.position = newPos;
+            transform.position += newPos;
         }
-        else if (Input.GetMouseButtonUp(2))
+        if (Input.GetMouseButtonUp(2))
         {
             gameObject.GetComponent<BoxCollider>().enabled = false;
         }
+
+        prevPos = Input.mousePosition;
     }
 }

@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class MeshPart : MonoBehaviour
 {
-
-    private float cameraOffsetZ;
-    void Start()
+    public bool pieceSelected = false;
+    void OnMouseOver()
     {
-        cameraOffsetZ = Camera.main.WorldToScreenPoint(transform.position).z;
+        //If your mouse hovers over the GameObject with the script attached, output this message
+        SetHighlighted(true);
+        Debug.Log("Mouse is over GameObject.");
     }
 
-    void Update()
+    void OnMouseExit()
     {
-        //if (Input.GetMouseButton(1))
-        //{
-            //Debug.Log($"Name: {transform.name}");
-            /*Vector3 screenPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, cameraOffsetZ);
-            Vector3 newPos = Camera.main.ScreenToWorldPoint(screenPosition);
-            transform.position = newPos;*/
-        //}
+        //The mouse is no longer hovering over the GameObject so output this message each frame
+        if (!pieceSelected)
+        {
+            SetHighlighted(false);
+        }
+        Debug.Log("Mouse is no longer on GameObject.");
     }
+
     public void SetHighlighted(bool value)
     {
         Material material = GetComponent<Renderer>().material;
@@ -28,4 +29,5 @@ public class MeshPart : MonoBehaviour
         material.SetColor("_EmissionColor", value ? new Color(0.5f, 0.5f, 0.5f, 1) : Color.black);
         material.EnableKeyword("_EMISSION");
     }
+
 }
