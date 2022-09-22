@@ -9,7 +9,6 @@ public class MeshPart : MonoBehaviour
     {
         //If your mouse hovers over the GameObject with the script attached, output this message
         SetHighlighted(true);
-        Debug.Log("Mouse is over GameObject.");
     }
 
     void OnMouseExit()
@@ -19,7 +18,6 @@ public class MeshPart : MonoBehaviour
         {
             SetHighlighted(false);
         }
-        Debug.Log("Mouse is no longer on GameObject.");
     }
 
     public void SetHighlighted(bool value)
