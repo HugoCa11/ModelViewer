@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ZoomController : MonoBehaviour
 {
@@ -15,6 +16,23 @@ public class ZoomController : MonoBehaviour
     void Update()
     {
         // As the main camera is an ortographic camera the ortographic size can be changed to zoom in or out
-        cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+        if(IsPointerOverUIObject() == false)
+        {
+            cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+        }
+    }
+
+    // Check if mouse over UI Object
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+
+        List<RaycastResult> results = new List<RaycastResult>();
+
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+
+        return results.Count > 0;
     }
 }
