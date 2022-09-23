@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class CreateTreeList : MonoBehaviour
 {
@@ -11,7 +13,17 @@ public class CreateTreeList : MonoBehaviour
     [SerializeField]
     Material normalMaterial;
 
+    [SerializeField]
+    List<GameObject> listBodies;
+
+    [SerializeField]
+    GameObject pieceBtn;
+
+    [SerializeField]
+    GameObject piecesList;
+
     bool xRayActive = false;
+    bool isListActive = false;
 
     Dictionary<Transform, List<Transform>> components = new Dictionary<Transform, List<Transform>>();
 
@@ -29,6 +41,7 @@ public class CreateTreeList : MonoBehaviour
             }
             components.Add(child, subChilds);
         }
+        CreateBtnPiece();
     }
 
     // Update is called once per frame
@@ -63,5 +76,28 @@ public class CreateTreeList : MonoBehaviour
                 
             }
         }
+    }
+
+    private void CreateBtnPiece()
+    {
+        int idx = 0;
+        foreach(GameObject body in listBodies)
+        {
+            foreach (Transform piece in components.ElementAt(idx).Value)
+            {
+                GameObject btn = Instantiate(pieceBtn);
+                btn.transform.SetParent(body.transform);
+                btn.transform.GetComponent<PieceBtn>().piece = piece.GetComponent<MeshPart>();
+                btn.transform.GetComponentInChildren<TextMeshProUGUI>().text = piece.name;
+            }
+            idx++;
+        }
+    }
+
+    public void hideList()
+    {
+        isListActive = !isListActive;
+        piecesList.SetActive(isListActive);
+
     }
 }
