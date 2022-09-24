@@ -18,6 +18,10 @@ public class RotateAndMoveMesh : MonoBehaviour
         // If Right mouse button is pressed start rotation mode
         if(Input.GetMouseButton(1))
         {
+
+            // Enable the box collider to disable the highlight functionallity
+            gameObject.GetComponent<BoxCollider>().enabled = true;
+
             // Calculate the difference betwen the current and previos position of the mouse
             deltaPos = Input.mousePosition - prevPos;
 
@@ -35,6 +39,11 @@ public class RotateAndMoveMesh : MonoBehaviour
 
             // Rotate around the X axis in world space
             transform.Rotate(cam.transform.right, Vector3.Dot(deltaPos, cam.transform.up), Space.World);
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            gameObject.GetComponent<BoxCollider>().enabled = false;
         }
 
         // If middle mouse button is presed start "Move Whole model" mode

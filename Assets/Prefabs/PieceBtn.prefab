@@ -149,7 +149,6 @@ GameObject:
   - component: {fileID: 8339289135743067054}
   - component: {fileID: 7982852685805428871}
   - component: {fileID: 8863126765096783102}
-  - component: {fileID: 8941946966164850041}
   - component: {fileID: 7204672981889882287}
   m_Layer: 5
   m_Name: PieceBtn
@@ -273,18 +272,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8941946966164850041}
-        m_TargetAssemblyTypeName: ChangeButtonTextColor, Assembly-CSharp
-        m_MethodName: changeTextColor
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &7982852685805428871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,18 +305,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   piece: {fileID: 0}
---- !u!114 &8941946966164850041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7655008972798231298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2903a4fef20f1d3449dcabbd3d19ff30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7204672981889882287
 MonoBehaviour:
   m_ObjectHideFlags: 0
