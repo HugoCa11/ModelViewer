@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 
-public class CreateTreeList : MonoBehaviour
+public class ControllerWholeModel : MonoBehaviour
 {
     [Header("Material for Mesh Parts")]    
     [SerializeField]
@@ -100,6 +100,8 @@ public class CreateTreeList : MonoBehaviour
                 btn.transform.GetComponent<PieceBtn>().piece = piece.GetComponent<MeshPart>();
                 // Set text of the button equal to the part name
                 btn.transform.GetComponentInChildren<TextMeshProUGUI>().text = piece.name;
+
+                piece.GetComponent<MeshPart>().correspondingButton = btn;
             }
             idx++;
         }

@@ -1,16 +1,16 @@
 using UnityEngine;
 using TMPro;
 
-public class ChangeButtonTextColor : MonoBehaviour
+public class ChangeButtonStatus : MonoBehaviour
 {
     // Color for text when button is selected
     private Color selectedColor = Color.yellow;
     private Color deselectedColor = Color.white;
 
-    // Variable to change the selected state
+    // Variable to set the highlited state
     private bool isSelected = false;
-
-    public void changeTextColor()
+    
+    public void ChangeState()
     {
         isSelected = !isSelected;
 

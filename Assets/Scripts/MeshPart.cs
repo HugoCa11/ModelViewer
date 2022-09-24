@@ -14,7 +14,8 @@ public class MeshPart : MonoBehaviour
 
     public bool isPieceSelected = false;
     public bool xRayActive = false;
-    public bool isBtnSelection = false;
+
+    public GameObject correspondingButton;
 
     void Start()
     {
@@ -40,29 +41,24 @@ public class MeshPart : MonoBehaviour
     // Method to highlight the piece
     public void SetHighlighted(bool value)
     {
-        // If X-Ray mode is active deactivate highlight functionality
-        if(!xRayActive)
+        // Highlight the Piece
+        if (value)
         {
-            if (value)
-            {
-                GetComponent<Renderer>().material = highlitMaterial;
-            }
-            else
+            GetComponent<Renderer>().material = highlitMaterial;
+            correspondingButton.GetComponent<PieceBtn>().highlight(value);
+        }
+        else
+        {
+            if (!xRayActive)
             {
                 GetComponent<Renderer>().material = normalMaterial;
-            }
-        }
-        else if (isBtnSelection)
-        {
-            if (value)
-            {
-                GetComponent<Renderer>().material = highlitMaterial;
             }
             else
             {
                 GetComponent<Renderer>().material = xRayMaterial;
             }
-            //isBtnSelection = false;
+            
+            correspondingButton.GetComponent<PieceBtn>().highlight(value);
         }
     }
 

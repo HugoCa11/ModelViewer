@@ -41,7 +41,7 @@ public class PartSelector : MonoBehaviour
             MeshPart hitPart = hit.collider.GetComponentInParent<MeshPart>();
 
             // If ray hiting a part but nothing is selected
-            if (hitPart != null && selectedPiece == null) 
+            if (hitPart != null) 
             {
                 // If a part is highlited (Usually when it´s selected)
                 if (highlighted != null)
@@ -49,8 +49,6 @@ public class PartSelector : MonoBehaviour
                     // If mouse is over a new part
                     if (highlighted != hitPart)
                     {
-                        highlighted.isPieceSelected = false; // Deselect Piece
-                        highlighted.SetHighlighted(false); // Remove highlight
                         textCanvas.SetActive(false); // Deactivate name canvas
                     }
                 }
@@ -61,6 +59,13 @@ public class PartSelector : MonoBehaviour
                 // If left mouse button is presed over a piece
                 if (Input.GetMouseButtonDown(0))
                 {
+                    // If previously another piece was selected
+                    if(selectedPiece != null)
+                    {
+                        // Deselect the piece and remove highlight
+                        selectedPiece.transform.GetComponent<MeshPart>().isPieceSelected = false;
+                        selectedPiece.transform.GetComponent<MeshPart>().SetHighlighted(false);
+                    }
                     // Set selestedPiece Game Object
                     selectedPiece = hit.transform.gameObject;
 
@@ -90,6 +95,28 @@ public class PartSelector : MonoBehaviour
                 // the user clicks anywhere but the current selected piece
                 // the name canvas is deactivated
                 textCanvas.SetActive(false);
+
+                if (selectedPiece != null)
+                {
+                    // Deselect the piece
+                    selectedPiece = null;
+                    highlighted = null;
+                }
+
+                // Check if the user is cliking over a UI
+                if(cam.GetComponent<ZoomController>().IsPointerOverUIObject() == false)
+                {
+                    // If the user is clicking the empty space
+                    MeshPart[] pieces = Object.FindObjectsOfType<MeshPart>();
+                    foreach (MeshPart piece in pieces)
+                    {
+                        // Deselect all pieces and remove highlight.
+                        // This function is useful when the user has selected pieces on the list.
+                        piece.isPieceSelected = false;
+                        piece.SetHighlighted(false);
+                        piece.correspondingButton.GetComponent<PieceBtn>().highlight(false);
+                    }
+                }
             }
         }
 
@@ -109,13 +136,6 @@ public class PartSelector : MonoBehaviour
             // Update piece and name canvas position (move)
             selectedPiece.transform.position = new Vector3(selectedPiece.transform.position.x + newPos.x, selectedPiece.transform.position.y + newPos.y, selectedPiece.transform.position.z);
             textCanvas.transform.position = new Vector3(textCanvas.transform.position.x + newCanvasPos.x, textCanvas.transform.position.y + newCanvasPos.y, textCanvas.transform.position.z);
-        }
-
-        // When left mouse button is released
-        if (Input.GetMouseButtonUp(0))
-        {
-            // No selected piece
-            selectedPiece = null;
         }
 
         // If the user clicks the right or middle mouse button the name canvas should be deactivated

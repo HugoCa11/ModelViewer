@@ -23,7 +23,7 @@ public class ZoomController : MonoBehaviour
     }
 
     // Check if mouse over UI Object
-    private bool IsPointerOverUIObject()
+    public bool IsPointerOverUIObject()
     {
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
 
